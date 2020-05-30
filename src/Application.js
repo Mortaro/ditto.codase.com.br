@@ -2,8 +2,11 @@ import Nullstack from 'nullstack';
 
 class Application extends Nullstack {
 
-  static async initiate(context) {
+  static async start(context) {
     context.port = 21137;
+    context.project.name = "Ditto Online";
+    context.project.color = "";
+    context.project.domain = "ditto.codase.com.br";
     const {echo} = await import('./echo');
     echo(context.server);
   }
@@ -14,8 +17,8 @@ class Application extends Nullstack {
   shortcuts = [];
   executing = false;
 
-  initiate({environment, metadata}) {
-    metadata.title = "Ditto Server";
+  initiate({environment, page}) {
+    page.title = "Ditto Server";
     if(environment.client) {
       this.connect();
       if(localStorage['shortcuts']) {
@@ -25,7 +28,7 @@ class Application extends Nullstack {
   }
 
   connect() {
-    this.socket = new WebSocket("ws://" + location.host, "protocolOne");
+    this.socket = new WebSocket("wss://" + location.host, "protocolOne");
     this.socket.onclose = () => setTimeout(this.connect, 1000);
     this.socket.onerror = () => this.socket.close();
   }
@@ -64,12 +67,12 @@ class Application extends Nullstack {
     )
   }
 
-  render({metadata}) {
+  render({page}) {
     return (
       <main class="xx bg1">
         <div class="xxx yy y12 p4x">
           <form class="xx bg0 md+x6 s1" onsubmit={this.execute}>
-            <h1 class="xx p3y bc1b c3"> {metadata.title} </h1>
+            <h1 class="xx p3y bc1b c3"> {page.title} </h1>
             <div class="xx p4">
               <input bind="room" placeholder="room" class="bc1 p4 m2b" />
               <input bind="command" placeholder="command" class="bc1 p4 m2b" />
