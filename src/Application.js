@@ -3,7 +3,7 @@ import Nullstack from 'nullstack';
 class Application extends Nullstack {
 
   static async start(context) {
-    context.port = 21137;
+    context.port = 21592;
     context.project.name = "Ditto Online";
     context.project.color = "";
     context.project.domain = "ditto.codase.com.br";
