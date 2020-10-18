@@ -1,14 +1,14 @@
 import Nullstack from 'nullstack';
 
+import './Application.css';
+
 class Application extends Nullstack {
 
-  static async start(context) {
-    context.port = 21592;
-    context.project.name = "Ditto Online";
-    context.project.color = "";
-    context.project.domain = "ditto.codase.com.br";
+  static async start({server, project}) {
+    server.port = 21592;
+    project.name = "Ditto Online";
     const {echo} = await import('./echo');
-    echo(context.server);
+    echo(server);
   }
 
   room = "";
@@ -57,11 +57,11 @@ class Application extends Nullstack {
 
   renderShortcut({shortcut}) {
     return (
-      <div class="xl m2b bg1 p4x p2y">
-        <div class="xl x6 yy"> {shortcut} </div>
-        <div class="xr x6 yy">
-          <button class="xx x0 c0 bg3 p2x p1y m1r" onclick={this.remove} shortcut={shortcut} disabled={this.executing}> x </button>
-          <button class="xx x0 c0 bg3 p2x p1y" onclick={this.execute} shortcut={shortcut} disabled={this.executing}> Execute </button>
+      <div class="xsb x12 m2b bgm1 bgd p4x p2y">
+        <div class="yy"> {shortcut} </div>
+        <div class="yy">
+          <button class="cm1 bgi2 p2x p1y m1r" onclick={this.remove} shortcut={shortcut} disabled={this.executing}> x </button>
+          <button class="cm1 bgi1 p2x p1y m1r" onclick={this.execute} shortcut={shortcut} disabled={this.executing}> Execute </button>
         </div>
       </div>
     )
@@ -69,17 +69,17 @@ class Application extends Nullstack {
 
   render({page}) {
     return (
-      <main class="xx bg1">
-        <div class="xxx yy y12 p4x">
-          <form class="xx bg0 md+x6 s1" onsubmit={this.execute}>
-            <h1 class="xx p3y bc1b c3"> {page.title} </h1>
+      <main class="x12 yy y12 yvh bgm1 bgd">
+        <div class="x xx p4x">
+          <form class="x12 bgm1 md+x6 s1" onsubmit={this.execute}>
+            <h1 class="xx p3y bcm1b bcdb ci1"> {page.title} </h1>
             <div class="xx p4">
-              <input bind="room" placeholder="room" class="bc1 p4 m2b" />
-              <input bind="command" placeholder="command" class="bc1 p4 m2b" />
-              <button class="xx bg3 c0 p4" disabled={this.executing}> Execute </button>
+              <input bind="room" placeholder="room" class="x12 bcm1 bcd p4 m2b" />
+              <input bind="command" placeholder="command" class="x12 bcm1 bcd p4 m2b" />
+              <button class="x12 xx bgi1 cm1 p4" disabled={this.executing}> Execute </button>
             </div>
             {this.shortcuts.length > 0 &&
-              <div class="xx p4x p4t p2b bc1t">
+              <div class="x12 p4x p4t p2b bcm1t bcdt">
                 {this.shortcuts.map((shortcut) => <Shortcut shortcut={shortcut} />)}
               </div>
             }
